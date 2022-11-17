@@ -1,9 +1,13 @@
 from tkinter import *
 import tkinter as tk
+import sqlite3
 
 root = tk.Tk()
 root.geometry("500x500")
 root.title("Inventory Manager")
+
+connection = sqlite3.connect('inventory.db')
+print(connection.total_changes)
 
 
 # function add text
@@ -11,6 +15,14 @@ def submit():
     item_id = item_identification.get()
     item_p = item_price.get()
     item_q = item_quantity.get()
+
+    print("The name is : " + item_id)
+    print("The price is : " + item_p)
+    print("The quantity is: " + item_q)
+
+    item_quantity.set("")
+    item_identification.set("")
+    item_price.set("")
 
 
 # title
@@ -39,13 +51,13 @@ submit_button_label = Button(root, text="Submit", command=submit)
 submit_button_label.place(x=300, y=200)
 
 # input area's
-item_identification_input_area = Entry(root, width=20)
+item_identification_input_area = Entry(root, textvariable=item_identification, width=20)
 item_identification_input_area.place(x=121, y=53)
 
-item_quantity_input_area = Entry(root, width=20)
+item_quantity_input_area = Entry(root, textvariable=item_quantity, width=20)
 item_quantity_input_area.place(x=171, y=103)
 
-item_price_input_area = Entry(root, width=20)
+item_price_input_area = Entry(root, textvariable=item_price, width=20)
 item_price_input_area.place(x=141, y=153)
 
 root.mainloop()
